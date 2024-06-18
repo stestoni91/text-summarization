@@ -1,0 +1,35 @@
+name: CICD
+
+env:
+  PYTHON_VERSION: 3.10
+  HF_TOKEN: ${{secrets.HUGGINGFACE_ACCESS_TOKEN}}
+  HF_USERNAME: stestoni91
+  HF_SPACE: text-summarization
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone repo
+      uses: actions/checkout@v4
+    - name: Install python
+      uses: actions/setup-python@v1
+      with:
+        python-version: $PYTHON_VERSION
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    - name: Run tests
+      run: python -m pytest
+  cd:
+    runs-on: ubuntu-latest
+      steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+      - name: Synch GitHub and HF
+        run: git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE
+      - name: Deploy app
+        run: git push --force https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE
