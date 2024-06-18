@@ -26,10 +26,10 @@ jobs:
       run: python -m pytest
   cd:
     runs-on: ubuntu-latest
-      steps:
-      - name: Clone repo
-        uses: actions/checkout@v4
-      - name: Synch GitHub and HF
-        run: git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE
-      - name: Deploy app
-        run: git push --force https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE
+    steps:
+    - name: Clone repo
+      uses: actions/checkout@v4
+    - name: Synch GitHub and HF
+      run: git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE
+    - name: Deploy app
+      run: git push --force https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE
