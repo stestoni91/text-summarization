@@ -29,6 +29,14 @@ jobs:
     - name: Clone repo
       uses: actions/checkout@v4
     - name: Synch GitHub and HF
+      env:
+        HF_TOKEN: ${{secrets.HUGGINGFACE_ACCESS_TOKEN}}
+        HF_USERNAME: stestoni91
+        HF_SPACE: text-summarization
       run: git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE
     - name: Deploy app
+      env:
+        HF_TOKEN: ${{secrets.HUGGINGFACE_ACCESS_TOKEN}}
+        HF_USERNAME: stestoni91
+        HF_SPACE: text-summarization
       run: git push --force https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE
